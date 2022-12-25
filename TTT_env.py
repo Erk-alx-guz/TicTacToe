@@ -162,18 +162,14 @@ class Board():
                 screen.blit(o_image, locations[i])
 
         #   show that there is a tie or win for x, o
-        if self.win_tie() == 1:
-            screen.blit(x_wins_text, x_wins_rect)
-            screen.blit(prompt_image, prompt_image_rect)
-            screen.blit(prompt_yes, prompt_yes_rect)
-            screen.blit(prompt_no, prompt_no_rect)
-        elif self.win_tie() == -1:
-            screen.blit(o_wins_text, o_wins_rect)
-            screen.blit(prompt_image, prompt_image_rect)
-            screen.blit(prompt_yes, prompt_yes_rect)
-            screen.blit(prompt_no, prompt_no_rect)
-        elif self.win_tie() == 0:
-            screen.blit(tie_text, tie_rect)
+        if self.win_tie() != None:
+            if self.win_tie() == 1:
+                screen.blit(x_wins_text, x_wins_rect)
+            elif self.win_tie() == -1:
+                screen.blit(o_wins_text, o_wins_rect)
+            elif self.win_tie() == 0:
+                screen.blit(tie_text, tie_rect)
+
             screen.blit(prompt_image, prompt_image_rect)
             screen.blit(prompt_yes, prompt_yes_rect)
             screen.blit(prompt_no, prompt_no_rect)
