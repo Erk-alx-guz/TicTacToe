@@ -114,12 +114,16 @@ class Board():
         x_on_board = [x for x in range(0, len(self.board)) if self.board[x] == 1]        #Get index of all x positions on board
         o_on_board = [x for x in range(0, len(self.board)) if self.board[x] == -1]       #Get index of all o positions on board
 
+        #   Do something if an event happens
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit()
 
+            #   If Left mouse click do something
             if event.type == pygame.MOUSEBUTTONDOWN:
+
+                #   If a certain position is left clicked on that position is filled with an X or an O
                 if blank_1_rect.collidepoint(event.pos):
                     self.fill_board(1)
                 elif blank_2_rect.collidepoint(event.pos):
