@@ -144,17 +144,20 @@ class Board():
                 elif prompt_no_rect.collidepoint(event.pos):
                     self.end = True
 
-
+        #   show board
         screen.blit(board_image, board_image_rect)
 
+        #   show any and all X's on the board
         if x_on_board:
             for i in x_on_board:
                 screen.blit(x_image, locations[i])
 
+        #   show any and all O's on the board
         if o_on_board:
             for i in o_on_board:
                 screen.blit(o_image, locations[i])
 
+        #   show that there is a tie or win for x, o
         if self.win_tie() == 1:
             screen.blit(x_wins_text, x_wins_rect)
             screen.blit(prompt_image, prompt_image_rect)
@@ -171,6 +174,7 @@ class Board():
             screen.blit(prompt_yes, prompt_yes_rect)
             screen.blit(prompt_no, prompt_no_rect)
 
+        #   show error made
         if self.error_move:
             screen.blit(error_text, error_rect)
 
