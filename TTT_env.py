@@ -184,7 +184,7 @@ class Board():
                 screen.blit(o_image, locations[i])
 
         #   show that there is a tie or winner from X and O
-        if self.check_if_winner() != None:
+        if self.win_tie() != None:
             if self.win_tie()[1] == 0:
                 screen.blit(tie_text, tie_rect)
             elif self.board[self.win_tie()[1]] == 1:
