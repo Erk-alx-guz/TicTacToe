@@ -74,12 +74,29 @@ class Board():
         #   fps
         clock = pygame.time.Clock()
 
+        #   Board image
         board_image = pygame.image.load('tictactoeboard.jpeg').convert()
         board_image_rect = board_image.get_rect(center = (345, 300))
 
+        #   X/O image
         x_image = pygame.image.load('tictactoeX.jpeg').convert_alpha()
         o_image = pygame.image.load('tictactoeO.jpeg').convert_alpha()
 
+        #   Winning Lines 
+        vertical_line = pygame.image.load('VerticalRedLine.jpeg').convert_alpha()
+        left_vertical_line_rect = vertical_line.get_rect(center = (187,250))
+        center_vertical_line_rect = vertical_line.get_rect(center = (347,250))
+        right_vertical_line_rect = vertical_line.get_rect(center = (512,250))
+
+        horizontal_line = pygame.image.load('HorizontalRedLine.jpeg').convert_alpha()
+        top_horizontal_line_rect = horizontal_line.get_rect(center = (350,145))
+        center_horizontal_line_rect = horizontal_line.get_rect(center = (350,298))
+        bottom_horizontal_line_rect = horizontal_line.get_rect(center = (350,470))
+
+        # dig_line = pygame.image.load('tLbR_line.png').convert_alpha()
+        # dig_line_rect = dig_line.get_rect(center = (350, 298))
+
+        #   Pormpt image
         prompt_image = pygame.image.load('prompt.jpeg').convert_alpha()
         prompt_image_rect = prompt_image.get_rect(center = (348,20))
 
@@ -88,6 +105,7 @@ class Board():
         prompt_no = pygame.image.load('prompt_no.jpeg').convert_alpha()
         prompt_no_rect = prompt_no.get_rect(center = (462,20))
 
+        #   Blank are on board
         blank = pygame.image.load('testSpace.jpeg').convert_alpha()
         blank_1_rect = blank.get_rect(center = (188, 140))
         blank_2_rect = blank.get_rect(center = (348,140))
@@ -99,6 +117,7 @@ class Board():
         blank_8_rect = blank.get_rect(center = (348,460))
         blank_9_rect = blank.get_rect(center = (510,460))
 
+        #   Font and text
         ttt_font = pygame.font.Font(None, 30)
 
         tie_text = ttt_font.render('Tie', False, 'Red')
@@ -111,6 +130,7 @@ class Board():
         error_text = ttt_font.render('Error try again!', False, 'Red')
         error_rect = error_text.get_rect(center = (352, 575))
 
+        #   List of positions
         x_on_board = [x for x in range(0, len(self.board)) if self.board[x] == 1]        #Get index of all x positions on board
         o_on_board = [x for x in range(0, len(self.board)) if self.board[x] == -1]       #Get index of all o positions on board
 
@@ -161,7 +181,10 @@ class Board():
             for i in o_on_board:
                 screen.blit(o_image, locations[i])
 
-        #   show that there is a tie or win for x, o
+        #   show red line
+        screen.blit(horizontal_line, bottom_horizontal_line_rect)
+
+        #   show that there is a tie or winner from X and O
         if self.win_tie() != None:
             if self.win_tie() == 1:
                 screen.blit(x_wins_text, x_wins_rect)
