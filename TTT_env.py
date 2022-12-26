@@ -17,22 +17,24 @@ class Board():
 
     def win_tie(self):
         if self.check_if_winner() == None and self.game_over():
-            return 0
+            return [0, 0, 0]
         else:
             return self.check_if_winner()
 
     def check_if_winner(self):
         for i in range(0,7,3):          #check row
             if self.board[i] == self.board[i+1] and self.board[i] == self.board[i+2] and self.board[i] != 0:
-                return self.board[i]
+                return [i, i+1, i+2]
 
         for i in range(0,3):            #check col
             if self.board[i] == self.board[i+3] and self.board[i] == self.board[i+6] and self.board[i] != 0:
-                return self.board[i]
+                return [i, i+3, i+6]
 
         #check cross
-        if ((self.board[0] == self.board[4] and self.board[0] == self.board[8]) or (self.board[2] == self.board[4] and self.board[2] == self.board[6])) and self.board[4] != 0:
-            return self.board[4]
+        if (self.board[0] == self.board[4] and self.board[0] == self.board[8]) and self.board[4] != 0:  #   tLbR
+            return [0, 4, 8]
+        if (self.board[2] == self.board[4] and self.board[2] == self.board[6]) and self.board[4] != 0:  #   tRbL
+            return [2, 4, 6]
         
         return None
 
@@ -185,13 +187,13 @@ class Board():
         screen.blit(horizontal_line, bottom_horizontal_line_rect)
 
         #   show that there is a tie or winner from X and O
-        if self.win_tie() != None:
-            if self.win_tie() == 1:
-                screen.blit(x_wins_text, x_wins_rect)
-            elif self.win_tie() == -1:
-                screen.blit(o_wins_text, o_wins_rect)
-            elif self.win_tie() == 0:
+        if self.check_if_winner() != None:
+            if self.win_tie()[1] == 0:
                 screen.blit(tie_text, tie_rect)
+            elif self.board[self.win_tie()[1]] == 1:
+                screen.blit(x_wins_text, x_wins_rect)
+            elif self.board[self.win_tie()[1]] == -1:
+                screen.blit(o_wins_text, o_wins_rect)
 
             screen.blit(prompt_image, prompt_image_rect)
             screen.blit(prompt_yes, prompt_yes_rect)
