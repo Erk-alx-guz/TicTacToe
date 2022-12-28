@@ -149,29 +149,32 @@ class Board():
             if event.type == pygame.MOUSEBUTTONDOWN:
 
                 #   If a certain position is left clicked on that position is filled with an X or an O
-                if blank_1_rect.collidepoint(event.pos):
-                    self.fill_board(1)
-                elif blank_2_rect.collidepoint(event.pos):
-                    self.fill_board(2)
-                elif blank_3_rect.collidepoint(event.pos):
-                    self.fill_board(3)
-                elif blank_4_rect.collidepoint(event.pos):
-                    self.fill_board(4)
-                elif blank_5_rect.collidepoint(event.pos):
-                    self.fill_board(5)
-                elif blank_6_rect.collidepoint(event.pos):
-                    self.fill_board(6)
-                elif blank_7_rect.collidepoint(event.pos):
-                    self.fill_board(7)
-                elif blank_8_rect.collidepoint(event.pos):
-                    self.fill_board(8)
-                elif blank_9_rect.collidepoint(event.pos):
-                    self.fill_board(9)
-                elif prompt_yes_rect.collidepoint(event.pos):
-                    self.board = [0] * 9
-                    self.error_move = False
-                elif prompt_no_rect.collidepoint(event.pos):
-                    self.end = True
+
+                if not self.game_over():
+                    if blank_1_rect.collidepoint(event.pos):
+                        self.fill_board(1)
+                    elif blank_2_rect.collidepoint(event.pos):
+                        self.fill_board(2)
+                    elif blank_3_rect.collidepoint(event.pos):
+                        self.fill_board(3)
+                    elif blank_4_rect.collidepoint(event.pos):
+                        self.fill_board(4)
+                    elif blank_5_rect.collidepoint(event.pos):
+                        self.fill_board(5)
+                    elif blank_6_rect.collidepoint(event.pos):
+                        self.fill_board(6)
+                    elif blank_7_rect.collidepoint(event.pos):
+                        self.fill_board(7)
+                    elif blank_8_rect.collidepoint(event.pos):
+                        self.fill_board(8)
+                    elif blank_9_rect.collidepoint(event.pos):
+                        self.fill_board(9)
+                else:   #   the game is over
+                    if prompt_yes_rect.collidepoint(event.pos):
+                        self.board = [0] * 9
+                        self.error_move = False
+                    elif prompt_no_rect.collidepoint(event.pos):
+                        self.end = True
 
         #   show board
         screen.blit(board_image, board_image_rect)
