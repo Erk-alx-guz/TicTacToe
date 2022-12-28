@@ -77,41 +77,41 @@ class Board():
         clock = pygame.time.Clock()
 
         #   Board image
-        board_image = pygame.image.load('tictactoeboard.jpeg').convert()
+        board_image = pygame.image.load('Images/tictactoeboard.jpeg').convert()
         board_image_rect = board_image.get_rect(center = (345, 300))
 
         #   X/O image
-        x_image = pygame.image.load('tictactoeX.jpeg').convert_alpha()
-        o_image = pygame.image.load('tictactoeO.jpeg').convert_alpha()
+        x_image = pygame.image.load('Images/tictactoeX.jpeg').convert_alpha()
+        o_image = pygame.image.load('Images/tictactoeO.jpeg').convert_alpha()
 
         #   Winning Lines 
-        vertical_line = pygame.image.load('VerticalRedLine.jpeg').convert_alpha()
+        vertical_line = pygame.image.load('Images/VerticalRedLine.jpeg').convert_alpha()
         left_vertical_line_rect = vertical_line.get_rect(center = (187,250))
         center_vertical_line_rect = vertical_line.get_rect(center = (347,250))
         right_vertical_line_rect = vertical_line.get_rect(center = (512,250))
 
-        horizontal_line = pygame.image.load('HorizontalRedLine.jpeg').convert_alpha()
+        horizontal_line = pygame.image.load('Images/HorizontalRedLine.jpeg').convert_alpha()
         top_horizontal_line_rect = horizontal_line.get_rect(center = (350,145))
         center_horizontal_line_rect = horizontal_line.get_rect(center = (350,298))
         bottom_horizontal_line_rect = horizontal_line.get_rect(center = (350,470))
 
-        diag_LR_line = pygame.image.load('diag_LR_line.png').convert_alpha()
+        diag_LR_line = pygame.image.load('Images/diag_LR_line.png').convert_alpha()
         diag_LR_line_rect = diag_LR_line.get_rect(center = (350, 298))
 
-        diag_RL_line = pygame.image.load('diag_RL_line.png').convert_alpha()
+        diag_RL_line = pygame.image.load('Images/diag_RL_line.png').convert_alpha()
         diag_RL_line_rect = diag_RL_line.get_rect(center = (350, 298))
 
         #   Pormpt image
-        prompt_image = pygame.image.load('prompt.jpeg').convert_alpha()
+        prompt_image = pygame.image.load('Images/prompt.jpeg').convert_alpha()
         prompt_image_rect = prompt_image.get_rect(center = (348,20))
 
-        prompt_yes = pygame.image.load('prompt_yes.jpeg').convert_alpha()
+        prompt_yes = pygame.image.load('Images/prompt_yes.jpeg').convert_alpha()
         prompt_yes_rect = prompt_yes.get_rect(center = (409,20))
-        prompt_no = pygame.image.load('prompt_no.jpeg').convert_alpha()
+        prompt_no = pygame.image.load('Images/prompt_no.jpeg').convert_alpha()
         prompt_no_rect = prompt_no.get_rect(center = (462,20))
 
         #   Blank are on board
-        blank = pygame.image.load('testSpace.jpeg').convert_alpha()
+        blank = pygame.image.load('Images/testSpace.jpeg').convert_alpha()
         blank_1_rect = blank.get_rect(center = (188, 140))
         blank_2_rect = blank.get_rect(center = (348,140))
         blank_3_rect = blank.get_rect(center = (510,140))
