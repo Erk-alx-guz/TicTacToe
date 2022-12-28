@@ -95,11 +95,11 @@ class Board():
         center_horizontal_line_rect = horizontal_line.get_rect(center = (350,298))
         bottom_horizontal_line_rect = horizontal_line.get_rect(center = (350,470))
 
-        # diag_LR_line = pygame.image.load('tLbR_line.jpeg').convert_alpha()
-        # diag_LR_line_rect = diag_LR_line.get_rect(center = (350, 298))
+        diag_LR_line = pygame.image.load('diag_LR_line.png').convert_alpha()
+        diag_LR_line_rect = diag_LR_line.get_rect(center = (350, 298))
 
-        # diag_RL_line = pygame.image.load('tRbL_line.jpeg').convert_alpha()
-        # diag_RL_line_rect = diag_RL_line.get_rect(center = (350, 298))
+        diag_RL_line = pygame.image.load('diag_RL_line.png').convert_alpha()
+        diag_RL_line_rect = diag_RL_line.get_rect(center = (350, 298))
 
         #   Pormpt image
         prompt_image = pygame.image.load('prompt.jpeg').convert_alpha()
@@ -186,9 +186,6 @@ class Board():
             for i in o_on_board:
                 screen.blit(o_image, locations[i])
 
-        #   diagonal line
-        #screen.blit(diag_LR_line, diag_LR_line_rect)
-
         #   show that there is a tie or winner from X and O
         if self.win_tie() != None:
             if self.win_tie()[1] == 0:
@@ -211,6 +208,10 @@ class Board():
                 screen.blit(vertical_line, center_vertical_line_rect)
             elif [2, 5, 8] == self.win_tie():
                 screen.blit(vertical_line, right_vertical_line_rect)
+            elif [0, 4, 8] == self.win_tie():
+                screen.blit(diag_LR_line, diag_LR_line_rect)
+            elif [2, 4, 6] == self.win_tie():
+                screen.blit(diag_RL_line, diag_RL_line_rect)
 
             screen.blit(prompt_image, prompt_image_rect)
             screen.blit(prompt_yes, prompt_yes_rect)
