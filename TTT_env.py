@@ -17,22 +17,24 @@ class Board():
 
     def win_tie(self):
         if self.check_if_winner() == None and self.game_over():
-            return 0
+            return [0, 0, 0]
         else:
             return self.check_if_winner()
 
     def check_if_winner(self):
         for i in range(0,7,3):          #check row
             if self.board[i] == self.board[i+1] and self.board[i] == self.board[i+2] and self.board[i] != 0:
-                return self.board[i]
+                return [i, i+1, i+2]
 
         for i in range(0,3):            #check col
             if self.board[i] == self.board[i+3] and self.board[i] == self.board[i+6] and self.board[i] != 0:
-                return self.board[i]
+                return [i, i+3, i+6]
 
         #check cross
-        if ((self.board[0] == self.board[4] and self.board[0] == self.board[8]) or (self.board[2] == self.board[4] and self.board[2] == self.board[6])) and self.board[4] != 0:
-            return self.board[4]
+        if (self.board[0] == self.board[4] and self.board[0] == self.board[8]) and self.board[4] != 0:  #   tLbR
+            return [0, 4, 8]
+        if (self.board[2] == self.board[4] and self.board[2] == self.board[6]) and self.board[4] != 0:  #   tRbL
+            return [2, 4, 6]
         
         return None
 
@@ -74,12 +76,32 @@ class Board():
         #   fps
         clock = pygame.time.Clock()
 
+        #   Board image
         board_image = pygame.image.load('tictactoeboard.jpeg').convert()
         board_image_rect = board_image.get_rect(center = (345, 300))
 
+        #   X/O image
         x_image = pygame.image.load('tictactoeX.jpeg').convert_alpha()
         o_image = pygame.image.load('tictactoeO.jpeg').convert_alpha()
 
+        #   Winning Lines 
+        vertical_line = pygame.image.load('VerticalRedLine.jpeg').convert_alpha()
+        left_vertical_line_rect = vertical_line.get_rect(center = (187,250))
+        center_vertical_line_rect = vertical_line.get_rect(center = (347,250))
+        right_vertical_line_rect = vertical_line.get_rect(center = (512,250))
+
+        horizontal_line = pygame.image.load('HorizontalRedLine.jpeg').convert_alpha()
+        top_horizontal_line_rect = horizontal_line.get_rect(center = (350,145))
+        center_horizontal_line_rect = horizontal_line.get_rect(center = (350,298))
+        bottom_horizontal_line_rect = horizontal_line.get_rect(center = (350,470))
+
+        diag_LR_line = pygame.image.load('diag_LR_line.png').convert_alpha()
+        diag_LR_line_rect = diag_LR_line.get_rect(center = (350, 298))
+
+        diag_RL_line = pygame.image.load('diag_RL_line.png').convert_alpha()
+        diag_RL_line_rect = diag_RL_line.get_rect(center = (350, 298))
+
+        #   Pormpt image
         prompt_image = pygame.image.load('prompt.jpeg').convert_alpha()
         prompt_image_rect = prompt_image.get_rect(center = (348,20))
 
@@ -88,6 +110,7 @@ class Board():
         prompt_no = pygame.image.load('prompt_no.jpeg').convert_alpha()
         prompt_no_rect = prompt_no.get_rect(center = (462,20))
 
+        #   Blank are on board
         blank = pygame.image.load('testSpace.jpeg').convert_alpha()
         blank_1_rect = blank.get_rect(center = (188, 140))
         blank_2_rect = blank.get_rect(center = (348,140))
@@ -99,6 +122,7 @@ class Board():
         blank_8_rect = blank.get_rect(center = (348,460))
         blank_9_rect = blank.get_rect(center = (510,460))
 
+        #   Font and text
         ttt_font = pygame.font.Font(None, 30)
 
         tie_text = ttt_font.render('Tie', False, 'Red')
@@ -111,6 +135,7 @@ class Board():
         error_text = ttt_font.render('Error try again!', False, 'Red')
         error_rect = error_text.get_rect(center = (352, 575))
 
+        #   List of positions
         x_on_board = [x for x in range(0, len(self.board)) if self.board[x] == 1]        #Get index of all x positions on board
         o_on_board = [x for x in range(0, len(self.board)) if self.board[x] == -1]       #Get index of all o positions on board
 
@@ -161,14 +186,32 @@ class Board():
             for i in o_on_board:
                 screen.blit(o_image, locations[i])
 
-        #   show that there is a tie or win for x, o
+        #   show that there is a tie or winner from X and O
         if self.win_tie() != None:
-            if self.win_tie() == 1:
-                screen.blit(x_wins_text, x_wins_rect)
-            elif self.win_tie() == -1:
-                screen.blit(o_wins_text, o_wins_rect)
-            elif self.win_tie() == 0:
+            if self.win_tie()[1] == 0:
                 screen.blit(tie_text, tie_rect)
+            elif self.board[self.win_tie()[1]] == 1:
+                screen.blit(x_wins_text, x_wins_rect)
+            elif self.board[self.win_tie()[1]] == -1:
+                screen.blit(o_wins_text, o_wins_rect)
+
+            #   show red winning line
+            if [0, 1, 2] == self.win_tie():
+                screen.blit(horizontal_line, top_horizontal_line_rect)
+            elif [3, 4, 5] == self.win_tie():
+                screen.blit(horizontal_line, center_horizontal_line_rect)
+            elif [6, 7, 8] == self.win_tie():
+                screen.blit(horizontal_line, bottom_horizontal_line_rect)
+            elif [0, 3, 6] == self.win_tie():
+                screen.blit(vertical_line, left_vertical_line_rect)
+            elif [1, 4, 7] == self.win_tie():
+                screen.blit(vertical_line, center_vertical_line_rect)
+            elif [2, 5, 8] == self.win_tie():
+                screen.blit(vertical_line, right_vertical_line_rect)
+            elif [0, 4, 8] == self.win_tie():
+                screen.blit(diag_LR_line, diag_LR_line_rect)
+            elif [2, 4, 6] == self.win_tie():
+                screen.blit(diag_RL_line, diag_RL_line_rect)
 
             screen.blit(prompt_image, prompt_image_rect)
             screen.blit(prompt_yes, prompt_yes_rect)
