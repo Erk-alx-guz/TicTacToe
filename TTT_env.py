@@ -135,10 +135,6 @@ class Board():
         error_text = ttt_font.render('Error try again!', False, 'Red')
         error_rect = error_text.get_rect(center = (352, 575))
 
-        #   List of positions
-        x_on_board = [x for x in range(0, len(self.board)) if self.board[x] == 1]        #Get index of all x positions on board
-        o_on_board = [x for x in range(0, len(self.board)) if self.board[x] == -1]       #Get index of all o positions on board
-
         #   Do something if an event happens
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -178,6 +174,10 @@ class Board():
 
         #   show board
         screen.blit(board_image, board_image_rect)
+
+        #   List of positions
+        x_on_board = [x for x in range(0, len(self.board)) if self.board[x] == 1]        #Get index of all x positions on board
+        o_on_board = [o for o in range(0, len(self.board)) if self.board[o] == -1]       #Get index of all o positions on board
 
         #   show any and all X's on the board
         if x_on_board:
